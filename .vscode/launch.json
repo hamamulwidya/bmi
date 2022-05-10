@@ -7,7 +7,7 @@
         {
             "name": "bmi",
             "request": "launch",
-            "deviceId": "chrome",
+            // "deviceId": "chrome",
             "type": "dart"
         },
         {
