@@ -29,6 +29,8 @@ class BmiResultScreen extends StatelessWidget {
     return category;
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
