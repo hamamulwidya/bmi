@@ -15,6 +15,7 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
   int height = 100;
   int weight = 50;
   int age = 20;
+  String? gender;
 
   double calculateBmi() {
     double heightInMeter = height / 100;
@@ -37,20 +38,37 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
         children: [
           Expanded(
             child: Row(
-              children: const [
+              children: [
                 Expanded(
-                  child: BmiCard(
-                    child: GenderIconText(
-                      icon: Icons.male,
-                      title: 'Male',
+                  child: GestureDetector(
+                    onTap: () {
+                      gender = "male";
+
+                      setState(() {});
+                    },
+                    child: BmiCard(
+                      borderColor:
+                          (gender == "male") ? Colors.white : primaryColor,
+                      child: GenderIconText(
+                        icon: Icons.male,
+                        title: 'Male',
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
-                  child: BmiCard(
-                    child: GenderIconText(
-                      icon: Icons.female,
-                      title: 'Female',
+                  child: GestureDetector(
+                    onTap: () {
+                      gender = "female";
+                      setState(() {});
+                    },
+                    child: BmiCard(
+                      borderColor:
+                          (gender == "female") ? Colors.white : primaryColor,
+                      child: GenderIconText(
+                        icon: Icons.female,
+                        title: 'Female',
+                      ),
                     ),
                   ),
                 ),
@@ -262,9 +280,11 @@ class BmiCard extends StatelessWidget {
   const BmiCard({
     Key? key,
     this.child,
+    this.borderColor = primaryColor,
   }) : super(key: key);
 
   final Widget? child;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -272,6 +292,7 @@ class BmiCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Color(0xff272A4E),
           borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: borderColor!),
         ),
         margin: EdgeInsets.all(15),
         child: child);
