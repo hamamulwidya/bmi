@@ -49,6 +49,39 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
       appBar: AppBar(
         title: const Text("BMI Calculator"),
       ),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          // print(calculateBmi());
+          final bmiCalculator = BmiCalculator(height: height, weight: weight);
+          bmiCalculator.calculateBmi();
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: ((context) {
+                return BmiResultScreen(
+                  bmi: bmiCalculator.bmi!,
+                );
+              }),
+            ),
+          );
+        },
+        child: Container(
+          height: 80,
+          margin: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              color: const Color(0xffEC3C66),
+              borderRadius: BorderRadius.circular(8)),
+          child: const Center(
+            child: Text(
+              "Hitung BMI",
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Row(
@@ -63,9 +96,28 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                   child: BmiCard(
                     borderColor:
                         (gender == "male") ? Colors.white : primaryColor,
-                    child: const GenderIconText(
-                      icon: Icons.male,
-                      title: 'Male',
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            child: const GenderIconText(
+                              icon: Icons.male,
+                              title: 'Male',
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 10,
+                          right: 10,
+                          child: Icon(
+                            Icons.check_circle,
+                            color: (gender == "male")
+                                ? Colors.white
+                                : primaryColor,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -79,15 +131,35 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                   child: BmiCard(
                     borderColor:
                         (gender == "female") ? Colors.white : primaryColor,
-                    child: const GenderIconText(
-                      icon: Icons.female,
-                      title: 'Female',
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            child: const GenderIconText(
+                              icon: Icons.female,
+                              title: 'Female',
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 10,
+                          right: 10,
+                          child: Icon(
+                            Icons.check_circle,
+                            color: (gender == "female")
+                                ? Colors.white
+                                : primaryColor,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
               ),
             ],
           ),
+          SizedBox(height: 20),
           Column(
             children: [
               Text(
@@ -137,6 +209,7 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
               ),
             ],
           ),
+          SizedBox(height: 20),
           Container(
             child: Row(
               children: [
@@ -207,40 +280,6 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                   ),
                 ),
               ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              // print(calculateBmi());
-              final bmiCalculator =
-                  BmiCalculator(height: height, weight: weight);
-              bmiCalculator.calculateBmi();
-
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: ((context) {
-                    return BmiResultScreen(
-                      bmi: bmiCalculator.bmi!,
-                    );
-                  }),
-                ),
-              );
-            },
-            child: Container(
-              height: 80,
-              margin: EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: const Color(0xffEC3C66),
-                  borderRadius: BorderRadius.circular(8)),
-              child: const Center(
-                child: Text(
-                  "Hitung BMI",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-              ),
             ),
           ),
         ],
