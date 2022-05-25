@@ -88,9 +88,7 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
               ),
             ],
           ),
-          BmiCard(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
               Text(
                 "HEIGHT",
@@ -99,65 +97,75 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 12),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    "$height",
-                    style: numberTextStyle,
+                  Expanded(
+                    child: BmiCard(
+                      child: Slider(
+                        value: height.toDouble(),
+                        min: 80,
+                        max: 200,
+                        thumbColor: Colors.red,
+                        activeColor: Colors.white,
+                        onChanged: (value) {
+                          height = value.toInt();
+                          setState(() {});
+                        },
+                      ),
+                    ),
                   ),
-                  Text(
-                    "cm",
-                    style: labelTextStyle,
+                  BmiCard(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "$height",
+                            style: labelTextStyle,
+                          ),
+                          Text(
+                            "cm",
+                            style: labelTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
-              Slider(
-                value: height.toDouble(),
-                min: 80,
-                max: 200,
-                thumbColor: Colors.red,
-                activeColor: Colors.white,
-                onChanged: (value) {
-                  height = value.toInt();
-                  setState(() {});
-                },
-              )
             ],
-          )),
+          ),
           Container(
             child: Row(
               children: [
                 Expanded(
                   child: Column(
                     children: [
-                        Text(
-                          "WEIGHT",
-                          style: labelTextStyle,
-                        ),
+                      Text(
+                        "WEIGHT",
+                        style: labelTextStyle,
+                      ),
                       BmiCard(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                          
-                            
-                                Container(
-                                  height: MediaQuery.of(context).size.height * 0.15,
-                                  child: CupertinoPicker(
-                                    scrollController: FixedExtentScrollController(
-                                        initialItem: 30),
-                                    itemExtent: 25,
-                                    magnification: 2,
-                                    useMagnifier: true,
-                                    onSelectedItemChanged: (val) {
-                                      age = val + 20;
-                                      setState(() {});
-                                    },
-                                    children: generateList(20, 220),
-                                  ),
-                                ),
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.15,
+                              child: CupertinoPicker(
+                                scrollController: FixedExtentScrollController(
+                                    initialItem: 30),
+                                itemExtent: 25,
+                                magnification: 2,
+                                useMagnifier: true,
+                                onSelectedItemChanged: (val) {
+                                  age = val + 20;
+                                  setState(() {});
+                                },
+                                children: generateList(20, 220),
+                              ),
+                            ),
                             const SizedBox(height: 8),
                           ],
                         ),
@@ -179,8 +187,8 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                             Container(
                               height: MediaQuery.of(context).size.height * 0.15,
                               child: CupertinoPicker(
-                                scrollController: FixedExtentScrollController(
-                                    initialItem: 5),
+                                scrollController:
+                                    FixedExtentScrollController(initialItem: 5),
                                 itemExtent: 25,
                                 magnification: 2,
                                 useMagnifier: true,
